@@ -20,7 +20,7 @@ public class VaultConsoleExample {
             // =========================
 
             String plaintext = "hello,vault";
-            String encoded = Base64.getEncoder().encodeToString(plaintext.getBytes());
+            String encoded = Base64.getEncoder().encodeToString(plaintext.getBytes(StandardCharsets.UTF_8));
 
             String encryptJson = "{ \"plaintext\": \"" + encoded + "\" }";
 
@@ -72,10 +72,10 @@ public class VaultConsoleExample {
             System.out.println(decryptResponse.body());
 
             // Base64 plaintext 추출
-            String decodedBase64 = extractValue(decryptResponse.body(), "plaintext");
+            String encodedBase64 = extractValue(decryptResponse.body(), "plaintext");
 
             // Base64 → 원문 문자열
-            String result = new String(Base64.getDecoder().decode(decodedBase64), StandardCharsets.UTF_8);
+            String result = new String(Base64.getDecoder().decode(encodedBase64), StandardCharsets.UTF_8);
 
             System.out.println("최종 복호화 결과: " + result);
 
